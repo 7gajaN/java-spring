@@ -20,12 +20,12 @@ public class UserService {
     }
 
     public User createUser(User user){
-        Optional<User> userWithSameUsername = userRepository.findByUsername(user.getUsername());
-        if(userWithSameUsername.isPresent()){
+        User userWithSameUsername = userRepository.findByUsername(user.getUsername());
+        if(userWithSameUsername != null){
             throw new UsernameAlreadyInUseException();
         }
-        Optional<User> userWithSameEmail = userRepository.findByEmail(user.getEmail());
-        if(userWithSameEmail.isPresent()){
+        User userWithSameEmail = userRepository.findByEmail(user.getEmail());
+        if(userWithSameEmail != null){
             throw new EmailAlreadyInUseException();
         }
         return userRepository.save(user);
@@ -35,11 +35,11 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Optional<User> getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<User> getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
