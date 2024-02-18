@@ -22,10 +22,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody @Valid CreateUserRequest createUserRequest){
-        User newUser = new User();
-        newUser.setUsername(createUserRequest.getUsername());
-        newUser.setEmail(createUserRequest.getEmail());
-        newUser.setPassword(createUserRequest.getPassword());
+        User newUser = new User(createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword());
 
         User createdUser = userService.createUser(newUser);
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
