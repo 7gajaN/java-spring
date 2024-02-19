@@ -18,7 +18,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findProductById(long id) {
+    public Product getProductById(long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isPresent()){
             return productOptional.get();
@@ -26,4 +26,9 @@ public class ProductService {
             throw new ProductNotFoundException(id);
         }
     }
+
+    public Product getProductByName(String name){
+        return productRepository.findByName(name);
+    }
+
 }
