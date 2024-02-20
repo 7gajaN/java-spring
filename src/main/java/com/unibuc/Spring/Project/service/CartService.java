@@ -24,7 +24,7 @@ public class CartService {
     }
 
     public Cart getUserCart(User user){
-        return cartRepository.getReferenceById(user.getId());
+        return cartRepository.getByUser(user);
     }
 
     public void addToCart(User user, Product product){
@@ -34,10 +34,10 @@ public class CartService {
             cart = getUserCart(user);
         }
 
-        List<OrderItem> itemList = cart.getOrderItems();
-        OrderItem item = new OrderItem(cart, product, 1);
+        List<CartItem> itemList = cart.getCartItems();
+        CartItem item = new CartItem(cart, product, 1);
         itemList.add(item);
-        cart.setOrderItems(itemList);
+        cart.setCartItems(itemList);
 
         cartRepository.save(cart);
     }
@@ -49,9 +49,9 @@ public class CartService {
             cart = getUserCart(user);
         }
 
-        List<OrderItem> orderItems = cart.getOrderItems();
+        List<CartItem> orderItems = cart.getCartItems();
 
-        for(OrderItem i : orderItems){
+        for(CartItem i : orderItems){
             if(i.getProduct().equals(product)){
                 orderItems.remove(i);
                 break;
@@ -60,13 +60,24 @@ public class CartService {
     }
 
     public void clearCart(User user){
-        Cart cart = cartRepository.getReferenceById(user.getId());
+        Cart cart = cartRepository.getByUser(user);
         cartRepository.delete(cart);
     }
 
     public void goCheckout(User user){
         Cart cart = getUserCart(user);
-        orderRepository.save(cart);
+        Order order = new Order(user);
+
+        List<CartItem> items = cart.getCartItems();
+        List<OrderItem> orderItems = new ArrayList<>();
+        for(CartItem item : items){
+            OrderItem orderItem = new OrderItem(order, item.getProduct(), item.getQuantity());
+            orderItems.add(orderItem);
+        }
+
+        order.setOrderItems(orderItems);
+
+        orderRepository.save(order);
         cartRepository.delete(cart);
     }
 
