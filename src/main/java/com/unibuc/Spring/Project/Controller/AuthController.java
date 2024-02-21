@@ -1,8 +1,8 @@
 package com.unibuc.Spring.Project.Controller;
 
-import com.unibuc.Spring.Project.dto.user.LoginRequest;
-import com.unibuc.Spring.Project.dto.user.RegisterRequest;
-import com.unibuc.Spring.Project.exception.PasswordIncorrectException;
+import com.unibuc.Spring.Project.dto.auth.LoginRequest;
+import com.unibuc.Spring.Project.dto.auth.RegisterRequest;
+import com.unibuc.Spring.Project.exception.auth.PasswordIncorrectException;
 import com.unibuc.Spring.Project.model.User;
 import com.unibuc.Spring.Project.service.UserService;
 import jakarta.validation.Valid;
@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/api/auth")

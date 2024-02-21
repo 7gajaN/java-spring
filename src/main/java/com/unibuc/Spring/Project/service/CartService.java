@@ -27,7 +27,7 @@ public class CartService {
         return cartRepository.getByUser(user);
     }
 
-    public void addToCart(User user, Product product){
+    public Cart addToCart(User user, Product product){
         Cart cart = getUserCart(user);
         if(cart == null){
             createCart(user);
@@ -40,9 +40,10 @@ public class CartService {
         cart.setCartItems(itemList);
 
         cartRepository.save(cart);
+        return cart;
     }
 
-    public void removeProductFromCart(User user, Product product){
+    public Cart removeProductFromCart(User user, Product product){
         Cart cart = getUserCart(user);
         if(cart == null){
             createCart(user);
@@ -57,6 +58,8 @@ public class CartService {
                 break;
             }
         }
+
+        return cart;
     }
 
     public void clearCart(User user){

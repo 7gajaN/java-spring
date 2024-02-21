@@ -1,4 +1,4 @@
-package com.unibuc.Spring.Project.exception;
+package com.unibuc.Spring.Project.exception.user;
 
 public class EmailAlreadyInUseException extends RuntimeException{
     public EmailAlreadyInUseException(){

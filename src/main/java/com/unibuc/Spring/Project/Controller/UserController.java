@@ -1,6 +1,7 @@
 package com.unibuc.Spring.Project.Controller;
 
 import com.unibuc.Spring.Project.dto.user.CreateUserRequest;
+import com.unibuc.Spring.Project.dto.user.DeleteUserRequest;
 import com.unibuc.Spring.Project.model.User;
 import com.unibuc.Spring.Project.service.UserService;
 import jakarta.validation.Valid;
@@ -26,6 +27,14 @@ public class UserController {
 
         User createdUser = userService.createUser(newUser);
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> delete(@RequestBody @Valid DeleteUserRequest deleteUserRequest){
+        User user = userService.getUserByUsername(deleteUserRequest.getUsername());
+
+        userService.deleteUser(user.getUsername());
+        return ResponseEntity.status(200).body("User was deleted");
     }
 
     @GetMapping("/{id}")

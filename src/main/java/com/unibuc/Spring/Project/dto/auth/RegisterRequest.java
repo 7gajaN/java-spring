@@ -1,4 +1,4 @@
-package com.unibuc.Spring.Project.dto.user;
+package com.unibuc.Spring.Project.dto.auth;
 
 public class RegisterRequest {
     private String username;

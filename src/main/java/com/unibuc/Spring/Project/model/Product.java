@@ -1,7 +1,9 @@
 package com.unibuc.Spring.Project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -15,7 +17,7 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank(message = "Product price is required")
+    @NotNull
     @Column(name = "price")
     private double price;
 

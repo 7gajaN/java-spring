@@ -1,4 +1,4 @@
-package com.unibuc.Spring.Project.exception;
+package com.unibuc.Spring.Project.exception.order;
 
 public class OrderNotFoundException extends RuntimeException{
     public OrderNotFoundException(long id){

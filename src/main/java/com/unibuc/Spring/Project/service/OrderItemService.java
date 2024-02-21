@@ -1,6 +1,6 @@
 package com.unibuc.Spring.Project.service;
 
-import com.unibuc.Spring.Project.exception.OrderItemNotFoundException;
+import com.unibuc.Spring.Project.exception.order.OrderItemNotFoundException;
 import com.unibuc.Spring.Project.model.OrderItem;
 import com.unibuc.Spring.Project.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;

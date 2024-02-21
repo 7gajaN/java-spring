@@ -31,8 +31,11 @@ public class User {
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 
     public User(){
 

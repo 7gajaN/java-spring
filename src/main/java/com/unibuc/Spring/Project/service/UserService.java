@@ -1,8 +1,9 @@
 package com.unibuc.Spring.Project.service;
 
-import com.unibuc.Spring.Project.exception.EmailAlreadyInUseException;
-import com.unibuc.Spring.Project.exception.UsernameAlreadyInUseException;
+import com.unibuc.Spring.Project.exception.user.EmailAlreadyInUseException;
+import com.unibuc.Spring.Project.exception.user.UsernameAlreadyInUseException;
 import com.unibuc.Spring.Project.model.User;
+import com.unibuc.Spring.Project.repository.OrderRepository;
 import com.unibuc.Spring.Project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,11 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private OrderRepository orderRepository;
 
     public User createUser(User user){
         User userWithSameUsername = userRepository.findByUsername(user.getUsername());
@@ -54,7 +54,6 @@ public class UserService {
             user.setUsername(userDetails.getUsername());
             user.setPassword(userDetails.getPassword());
             user.setEmail(userDetails.getEmail());
-            // Set other fields as needed
             return userRepository.save(user);
         }
         else {
@@ -62,8 +61,9 @@ public class UserService {
         }
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String username) {
+        User user = getUserByUsername(username);
+        userRepository.delete(user);
     }
 
 
